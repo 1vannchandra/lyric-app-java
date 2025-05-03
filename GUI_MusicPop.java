@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package BAB5.IVAN;
+package OOP_PROJECT;
 
 /**
  *
@@ -186,17 +186,29 @@ public class GUI_MusicPop extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDurasiActionPerformed
 
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
-        // TODO add your handling code here:
-        String judul = (String)txtJudul.getText();
+        // Mengambil input judul dari field teks
+        String judul = txtJudul.getText();
+
+        // Mengambil input artis, dipisah berdasarkan koma dan spasi menjadi array
         String[] Artis = txtArtis.getText().split(",\\s*");
+
+        // Mengubah input durasi dari string menjadi tipe double
         double durasi = Double.parseDouble(txtDurasi.getText());
+
+        // Mengambil input lirik, dipisah berdasarkan baris menjadi array
         String[] lirik = txtLirik.getText().split("\\n");
-        
-        String songDetails = "";
+
+        // Membuat objek LaguPop dari data yang sudah dimasukkan
         LaguPop laguPop = new LaguPop(judul, Artis, durasi, lirik);
 
-        songDetails = ">> Judul: " + laguPop.getJudul() + "\n" + laguPop.putar() + "\n" + ">> Durasi: " + laguPop.getDurasi() + " menit\n" +   ">> Lirik:\n" + laguPop.tampilkanLirik() + "\n" + "Kesimpulan : " + laguPop.pesanPop();
-        
+        // Menyusun detail lagu dalam bentuk teks
+        String songDetails = ">> Judul: " + laguPop.getJudul() + "\n"
+                + laguPop.putar() + "\n"
+                + ">> Durasi: " + laguPop.getDurasi() + " menit\n"
+                + ">> Lirik:\n" + laguPop.tampilkanLirik() + "\n"
+                + "Kesimpulan : " + laguPop.pesanPop();
+
+        // Menampilkan hasilnya ke dalam area teks
         txtHasil.setText(songDetails);
     }//GEN-LAST:event_btnTambahActionPerformed
 

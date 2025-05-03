@@ -3,33 +3,35 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package BAB5.IVAN;
-
+package OOP_PROJECT;
 
 /**
  *
  * @author ivanc
  */
+// Subclass LaguRock merupakan turunan dari kelas abstrak Lagu
 public class LaguRock extends Lagu {
+
+    // Properti genre yang menunjukkan jenis lagu ini adalah Rock
     private String genre = "Rock";
 
-    // Constructor
+    // Konstruktor LaguRock yang memanggil konstruktor dari superclass (Lagu)
     public LaguRock(String judul, String[] artis, double durasi, String[] lirik) {
         super(judul, artis, durasi, lirik);
     }
 
-    // Getter untuk genre
+    // Getter untuk mengambil nilai genre
     public String getGenre() {
         return genre;
     }
 
-    // Override method putar
+    // Override method abstrak putar() dari kelas Lagu
     @Override
     public String putar() {
-        return ">>Memutar Lagu Rock Dari Artis: " + gabungArtis(getArtis());
+        return ">> Memutar Lagu Rock Dari Artis: " + gabungArtis(getArtis());
     }
 
-    // Menampilkan pesan khusus untuk lagu rock
+    // Method tambahan khusus untuk lagu rock
     public String pesanRock() {
         return ">> Lagu ini cocok untuk membangkitkan semangat!";
     }

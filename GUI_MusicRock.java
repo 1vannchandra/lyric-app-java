@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package BAB5.IVAN;
+package OOP_PROJECT;
 
 /**
  *
@@ -186,17 +186,29 @@ public class GUI_MusicRock extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDurasiActionPerformed
 
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
-        // TODO add your handling code here:
-        String judul = (String) txtJudul.getText();
+        // Mengambil input dari field teks untuk judul lagu
+        String judul = txtJudul.getText();
+
+        // Memecah input artis berdasarkan koma dan spasi menjadi array
         String[] Artis = txtArtis.getText().split(",\\s*");
+
+        // Mengonversi input durasi dari teks menjadi tipe data double
         double durasi = Double.parseDouble(txtDurasi.getText());
+
+        // Memecah input lirik berdasarkan baris menjadi array string
         String[] lirik = txtLirik.getText().split("\\n");
 
-        String songDetails = "";
+        // Membuat objek LaguRock dengan data yang telah diinputkan
         LaguRock laguRock = new LaguRock(judul, Artis, durasi, lirik);
 
-        songDetails = ">> Judul: " + laguRock.getJudul() + "\n" + laguRock.putar() + "\n" + ">> Durasi: " + laguRock.getDurasi() + " menit\n" + ">> Lirik:\n" + laguRock.tampilkanLirik() + "\n" + "Kesimpulan : " + laguRock.pesanRock();
+        // Menyusun detail lagu dalam format string untuk ditampilkan
+        String songDetails = ">> Judul: " + laguRock.getJudul() + "\n"
+                + laguRock.putar() + "\n"
+                + ">> Durasi: " + laguRock.getDurasi() + " menit\n"
+                + ">> Lirik:\n" + laguRock.tampilkanLirik() + "\n"
+                + "Kesimpulan : " + laguRock.pesanRock();
 
+        // Menampilkan hasilnya ke dalam area teks
         txtHasil.setText(songDetails);
     }//GEN-LAST:event_btnTambahActionPerformed
 

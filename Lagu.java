@@ -3,28 +3,30 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package BAB5.IVAN;
+package OOP_PROJECT;
 
 /**
  *
  * @author ivanc
  */
-public class Lagu {
+// Mendeklarasikan kelas Lagu sebagai abstract
+public abstract class Lagu {
 
+    // Properti privat untuk menyimpan judul, artis, durasi, dan lirik lagu
     private String judul;
     private String[] artis;
     private double durasi;
     private String[] lirik;
 
-    // Constructor Lagu
-    Lagu(String judul, String[] artis, double durasi, String[] lirik) {
+    // Konstruktor untuk menginisialisasi data lagu
+    public Lagu(String judul, String[] artis, double durasi, String[] lirik) {
         this.judul = judul;
         this.artis = artis;
         this.durasi = durasi;
         this.lirik = lirik;
     }
 
-    // Getter dan Setter untuk judul
+    // Getter dan Setter untuk properti judul
     public String getJudul() {
         return judul;
     }
@@ -33,7 +35,7 @@ public class Lagu {
         this.judul = judul;
     }
 
-    // Getter dan Setter untuk artis
+    // Getter dan Setter untuk properti artis
     public String[] getArtis() {
         return artis;
     }
@@ -42,7 +44,7 @@ public class Lagu {
         this.artis = artis;
     }
 
-    // Getter dan Setter untuk durasi
+    // Getter dan Setter untuk properti durasi
     public double getDurasi() {
         return durasi;
     }
@@ -55,7 +57,7 @@ public class Lagu {
         }
     }
 
-    // Getter dan Setter untuk lirik
+    // Getter dan Setter untuk properti lirik
     public String[] getLirik() {
         return lirik;
     }
@@ -64,7 +66,7 @@ public class Lagu {
         this.lirik = lirik;
     }
 
-    // Menggabungkan nama artis menjadi satu string
+    // Method statis untuk menggabungkan array artis menjadi satu string
     public static String gabungArtis(String[] artis) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < artis.length; i++) {
@@ -76,13 +78,10 @@ public class Lagu {
         return sb.toString();
     }
 
-    // Memutar lagu
-    //overriding
-    public String putar() {
-        return ">> Artis: " + gabungArtis(artis);
-    }
+    // Method abstrak yang harus diimplementasikan oleh subclass
+    public abstract String putar();
 
-    // Menampilkan lirik lagu
+    // Method untuk menampilkan semua lirik lagu
     public String tampilkanLirik() {
         StringBuilder lirikLagu = new StringBuilder();
         for (String baris : lirik) {

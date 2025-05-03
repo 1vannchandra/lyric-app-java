@@ -3,33 +3,35 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package BAB5.IVAN;
+package OOP_PROJECT;
 
 /**
  *
  * @author ivanc
  */
+// Subclass LaguPop merupakan turunan dari kelas abstrak Lagu
 public class LaguPop extends Lagu {
 
+    // Properti genre khusus untuk lagu pop
     private String genre = "Pop";
 
-    // Constructor
+    // Konstruktor LaguPop yang memanggil konstruktor dari superclass (Lagu)
     public LaguPop(String judul, String[] artis, double durasi, String[] lirik) {
         super(judul, artis, durasi, lirik);
     }
 
-    // Getter untuk genre
+    // Getter untuk mengambil nilai genre
     public String getGenre() {
         return genre;
     }
 
-    // Override method putar
+    // Override method abstrak putar() dari kelas Lagu
     @Override
     public String putar() {
-        return ">>Memutar Lagu Dari Artis: " + gabungArtis(getArtis());
+        return ">> Memutar Lagu Dari Artis: " + gabungArtis(getArtis());
     }
 
-    // Menampilkan pesan khusus untuk lagu pop
+    // Method tambahan khusus untuk lagu pop
     public String pesanPop() {
         return ">> Lagu ini cocok untuk suasana santai dan bahagia!";
     }

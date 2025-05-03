@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package BAB5.IVAN;
+package OOP_PROJECT;
 
 /**
  *
@@ -32,8 +32,9 @@ public class Main {
         System.out.println(">> Memutar lagu: " + laguPop.getJudul());
         System.out.println(">> Artis: " + Lagu.gabungArtis(laguPop.getArtis()));
         System.out.println(">> Genre: " + laguPop.getGenre());
-        laguPop.tampilkanLirik();
-        laguPop.pesanPop();
+        System.out.println(">> Durasi: " + laguPop.getDurasi() + " menit");
+        System.out.println(">> Lirik:\n" + laguPop.tampilkanLirik());
+        System.out.println(">> " + laguPop.pesanPop());
 
         System.out.println("\n===========================\n");
 
@@ -41,7 +42,9 @@ public class Main {
         System.out.println(">> Memutar lagu: " + laguRock.getJudul());
         System.out.println(">> Artis: " + Lagu.gabungArtis(laguRock.getArtis()));
         System.out.println(">> Genre: " + laguRock.getGenre());
-        laguRock.tampilkanLirik();
-        laguRock.pesanRock();
+        System.out.println(">> Durasi: " + laguRock.getDurasi() + " menit");
+        System.out.println(">> Lirik:\n" + laguRock.tampilkanLirik());
+        System.out.println(">> " + laguRock.pesanRock());
     }
+
 }

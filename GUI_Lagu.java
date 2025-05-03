@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package BAB5.IVAN;
+package OOP_PROJECT;
 
 /**
  *
@@ -100,17 +100,34 @@ public class GUI_Lagu extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPutarActionPerformed
-        // TODO add your handling code here:
+        // Menentukan durasi lagu (dalam menit)
         double durasi = 3.30;
+
+        // Mendefinisikan artis untuk lagu Pop
         String[] artisPop = {"Taylor Swift"};
+
+        // Mendefinisikan lirik lagu Pop
         String[] lirikPop = {
             "We were both young when I first saw you",
             "I close my eyes and the flashback starts"
         };
-        Lagu lagu = new Lagu("Love Story", artisPop, durasi, lirikPop);
+
+        // Membuat objek Lagu dengan judul, artis, durasi, dan lirik
+        Lagu lagu = new Lagu("Love Story", artisPop, durasi, lirikPop) {
+
+            @Override
+            public String putar() {
+                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        };
+
+        // Mengambil genre yang dipilih dari combo box
         String genre = (String) genreComboBox.getSelectedItem();
+
+        // Menyusun output awal
         String output = ">> Memutar lagu: " + genre;
 
+        // Menampilkan hasil ke dalam area teks
         txtHasil.append(output + "\n");
         txtHasil.append(lagu.putar() + "\n");
         txtHasil.append(">> Lirik : " + lagu.tampilkanLirik());
