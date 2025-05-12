@@ -186,29 +186,27 @@ public class GUI_MusicRock extends javax.swing.JFrame {
     }//GEN-LAST:event_txtDurasiActionPerformed
 
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
-        // Mengambil input dari field teks untuk judul lagu
+        // Ambil input dari form
         String judul = txtJudul.getText();
-
-        // Memecah input artis berdasarkan koma dan spasi menjadi array
-        String[] Artis = txtArtis.getText().split(",\\s*");
-
-        // Mengonversi input durasi dari teks menjadi tipe data double
+        String[] artis = txtArtis.getText().split(",\\s*");
         double durasi = Double.parseDouble(txtDurasi.getText());
-
-        // Memecah input lirik berdasarkan baris menjadi array string
         String[] lirik = txtLirik.getText().split("\\n");
 
-        // Membuat objek LaguRock dengan data yang telah diinputkan
-        LaguRock laguRock = new LaguRock(judul, Artis, durasi, lirik);
+        // Gunakan polimorfisme: referensi Lagu, objek LaguRock
+        Lagu lagu = new LaguRock(judul, artis, durasi, lirik);
 
-        // Menyusun detail lagu dalam format string untuk ditampilkan
-        String songDetails = ">> Judul: " + laguRock.getJudul() + "\n"
-                + laguRock.putar() + "\n"
-                + ">> Durasi: " + laguRock.getDurasi() + " menit\n"
-                + ">> Lirik:\n" + laguRock.tampilkanLirik() + "\n"
-                + "Kesimpulan : " + laguRock.pesanRock();
+        // Bangun teks hasil menggunakan method polymorphic
+        String songDetails = ">> Judul: " + lagu.getJudul() + "\n"
+                + lagu.putar() + "\n"
+                + ">> Durasi: " + lagu.getDurasi() + " menit\n"
+                + ">> Lirik:\n" + lagu.tampilkanLirik() + "\n";
 
-        // Menampilkan hasilnya ke dalam area teks
+        // Tambahkan pesan khusus jika jenis lagunya adalah LaguRock
+        if (lagu instanceof LaguRock) {
+            songDetails += ((LaguRock) lagu).pesanRock();
+        }
+
+        // Tampilkan hasil ke area teks
         txtHasil.setText(songDetails);
     }//GEN-LAST:event_btnTambahActionPerformed
 
