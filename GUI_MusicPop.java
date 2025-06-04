@@ -5,6 +5,16 @@
  */
 package OOP_PROJECT;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author ivanc
@@ -17,7 +27,44 @@ public class GUI_MusicPop extends javax.swing.JFrame {
     public GUI_MusicPop() {
         initComponents();
     }
+    public Connection conn;
+    
+    public void koneksi() throws SQLException {
+        try {
+            conn = null;
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection(
+        "jdbc:mysql://localhost:3306/oop_praktikum?useSSL=false",
+        "root",
+        "");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GUI_MusicPop.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            Logger.getLogger(GUI_MusicPop.class.getName()).log(Level.SEVERE, null, e);
+        } catch (Exception es) {
+            Logger.getLogger(GUI_MusicPop.class.getName()).log(Level.SEVERE, null, es);
+        }
+    }
 
+    
+    public void insert() {
+        String judul = txtJudul.getText();
+        String[] artis = txtArtis.getText().split(",\\s*");
+        String[] lirik = txtLirik.getText().split("\\n");
+        double durasi = Double.parseDouble(txtDurasi.getText());
+        try {
+            koneksi();
+            Statement statement = conn.createStatement();
+            statement.executeUpdate("INSERT INTO musik (judul, artis, durasi, lirik_lagu, genre)"
+                    + "VALUES('" + judul + "','" + artis + "','" + durasi + "','" + lirik + "','Pop'");
+            statement.close();
+            JOptionPane.showMessageDialog(null, "Berhasil Memasukan Data Musik!");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Terjadi Kesalahan Input!");
+        }
+    }
+
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -187,6 +234,7 @@ public class GUI_MusicPop extends javax.swing.JFrame {
 
     private void btnTambahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTambahActionPerformed
         // Mengambil input
+        insert();
         String judul = txtJudul.getText();
         String[] artis = txtArtis.getText().split(",\\s*");
         double durasi = Double.parseDouble(txtDurasi.getText());

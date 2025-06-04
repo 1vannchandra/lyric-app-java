@@ -5,6 +5,15 @@
 package OOP_PROJECT;
 
 import javax.swing.table.DefaultTableModel;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -25,6 +34,81 @@ public class GUI_Musik extends javax.swing.JFrame {
         model.addColumn("Durasi");
         model.addColumn("Lirik Lagu");
         tableMusik.setModel(model);
+    }
+    public Connection conn;
+
+    public void koneksi() throws SQLException {
+        try {
+            conn = null;
+            Class.forName("com.mysql.jdbc.Driver");
+            conn = DriverManager.getConnection(
+                    "jdbc:mysql://localhost:3306/oop_praktikum?useSSL=false",
+                    "root",
+                    "");
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(GUI_MusicPop.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (SQLException e) {
+            Logger.getLogger(GUI_MusicPop.class.getName()).log(Level.SEVERE, null, e);
+        } catch (Exception es) {
+            Logger.getLogger(GUI_MusicPop.class.getName()).log(Level.SEVERE, null, es);
+        }
+    }
+
+    public void insert() {
+        String judul = txtJudul.getText();
+        String[] artis = txtArtis.getText().split(",\\s*");
+        String[] lirik = txtLirik.getText().split("\\n");
+        double durasi = Double.parseDouble(txtDurasi.getText());
+        try {
+            koneksi();
+            Statement statement = conn.createStatement();
+            // Gabungkan array artis menjadi string
+            String gabungArtis = "";
+            for (int i = 0; i < artis.length; i++) {
+                gabungArtis += artis[i];
+                if (i < artis.length - 1) {
+                    gabungArtis += ", ";
+                }
+            }
+
+// Gabungkan array lirik menjadi string
+            String gabungLirik = "";
+            for (int i = 0; i < lirik.length; i++) {
+                gabungLirik += lirik[i];
+                if (i < lirik.length - 1) {
+                    gabungLirik += "\\n";
+                }
+            }
+
+// Lalu pakai ini di query
+            statement.executeUpdate("INSERT INTO musik (judul, artis, durasi, lirik_lagu, genre) "
+                    + "VALUES('" + judul + "','" + gabungArtis + "','" + durasi + "','" + gabungLirik + "','-')");
+
+            statement.close();
+            JOptionPane.showMessageDialog(null, "Berhasil Memasukan Data Musik!");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Terjadi Kesalahan Input!");
+        }
+    }
+
+    public void refresh() {
+        new GUI_Musik().setVisible(true);
+        this.setVisible(false);
+    }
+
+    public void delete() {
+        int ok = JOptionPane.showConfirmDialog(null, "Apakah Anda yakin akan menghapus data ?", "Konfirmasi", JOptionPane.YES_NO_OPTION);
+        if (ok == 0) {
+            try {
+                String sql = "DELETE FROM musik WHERE judul='" + txtJudul.getText() + "'";
+                java.sql.PreparedStatement stmt = conn.prepareStatement(sql);
+                stmt.executeUpdate();
+                JOptionPane.showMessageDialog(null, "Data Berhasil di hapus");
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(null, "Data gagal di hapus");
+            }
+        }
+        refresh();
     }
 
     /**
@@ -184,16 +268,7 @@ public class GUI_Musik extends javax.swing.JFrame {
 
     private void btnSimpanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSimpanActionPerformed
         // TODO add your handling code here:
-        model.addRow(new Object[]{
-            txtJudul.getText(),
-            txtArtis.getText(),
-            txtDurasi.getText(),
-            txtLirik.getText(),});
-        txtJudul.setText("");
-        txtArtis.setText("");
-        txtDurasi.setText("");
-        txtLirik.setText("");
-
+        insert();
     }//GEN-LAST:event_btnSimpanActionPerformed
 
     private void btnBatalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBatalActionPerformed
@@ -206,8 +281,9 @@ public class GUI_Musik extends javax.swing.JFrame {
 
     private void btnHapusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHapusActionPerformed
         // TODO add your handling code here:
-        int row = tableMusik.getSelectedRow();
-        model.removeRow(row);
+        delete();
+//        int row = tableMusik.getSelectedRow();
+//        model.removeRow(row);
     }//GEN-LAST:event_btnHapusActionPerformed
 
     private void btnCloseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCloseActionPerformed

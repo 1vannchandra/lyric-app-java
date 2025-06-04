@@ -10,7 +10,7 @@ package OOP_PROJECT;
  * @author ivanc
  */
 // Mendeklarasikan kelas Lagu sebagai abstract
-public abstract class Lagu {
+public abstract class Lagu implements ILagu {
 
     // Properti privat untuk menyimpan judul, artis, durasi, dan lirik lagu
     private String judul;
